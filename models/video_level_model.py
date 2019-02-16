@@ -40,10 +40,11 @@ class StatisticModel(nn.Module):
                                 vocab_size=self.opt.vocab_size,
                                 num_mixtures=self.opt.num_mixtures)
         if self.opt.use_context_gate:
-            self.context_gate = nn.ModuleList([
+            # 注意，这里要用nn.Sequential而不是nn.ModuleList
+            self.context_gate = nn.Sequential(
                 nn.Linear(self.opt.vocab_size, self.opt.vocab_size),
                 nn.Sigmoid()
-            ])
+            )
 
     def forward(self, x):
         # x的维度是[batch, input_size]
@@ -52,7 +53,7 @@ class StatisticModel(nn.Module):
             x = x.cpu()
         x = self.statistic_feature_extraction(x)
         # PCA降维
-        x = self.pca.transform(x)
+        x = torch.from_numpy(self.pca.transform(x)).float()
         # 传入MOE网络中进行分类
         if self.opt.use_gpu:
             x = x.cuda()

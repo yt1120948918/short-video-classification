@@ -97,7 +97,7 @@ class VideoSet(data.Dataset):
                 print(str(self.videos[index]) + " 无法提取帧数据，请检查视频是否过短")
                 raise
             frame_feature = np.tile(frame_feature, (res, 1))[:self.opt.frames_num]
-        return frame_feature, np.array(label)
+        return frame_feature, np.array(label, dtype='float32')
 
     def __len__(self):
         return len(self.videos)

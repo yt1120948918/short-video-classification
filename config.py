@@ -17,7 +17,7 @@ class DefaultConfig:
     lr = 0.01  # 学习率
     weight_decay = 1e-4  # 优化器中的参数weight decay
     max_epoch = 8  # 最大循环训练次数
-    model = 'StatisticModel'  # 还可以填写'DBoFModel'、'NetVLADModel'、'FVNetModel'和'RNNModel'
+    model = 'StatisticModel'  # 可以填写'StatisticModel'、'DBoFModel'、'NetVLADModel'、'FVNetModel'和'RNNModel'
 
     # 视频抽帧参数
     every_ms = 1000  # 帧之间时间间隔，单位ms
@@ -41,11 +41,16 @@ class DefaultConfig:
     test_size = 224  # 验证集和测试集的resize
     crop_size = 224  # 裁剪的size
 
-    # MOE分类网络参数
+    # 分类网络参数
     vocab_size = 63  # 总标签数量，比赛中已经给出是63种
-    num_mixtures = 4  # 单层MoE网络中专家数量
     use_context_gate = True
+
+    # 分类网络1 —— MoE网络参数
+    num_mixtures = 4  # 单层MoE网络中专家数量
     use_two_level_model = True
+
+    # 分类网络2 —— ResNet-like分类网络参数
+    inner_size = 2048
 
     # 方法一参数
     k = 6  # topk的k值
